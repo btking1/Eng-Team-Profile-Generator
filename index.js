@@ -1,12 +1,16 @@
-import inquirer from "inquirer";
-import { Intern } from "./lib/Intern.js";
-import { Engineer } from "./lib/Engineer.js";
-import { Manager } from "./lib/Manager.js";
+const generateTeam = require('./src/team.js');
+const inquirer = require("inquirer");
+const fs = require("fs");
+// const team = require("./src/team.js");
+const Manager = require("./lib/Manager.js");
+const Intern  = require("./lib/Intern.js");
+const Engineer = require("./lib/Engineer.js");
 
+const employeeArray = [];
 
-// Questions for all employees
-async function employeeQuestion() {
-  const res = await inquirer.prompt([
+// Prompt user for employee information
+const questions = async () => {
+  const response = await inquirer.prompt([
     {
       type: "input",
       name: "name",
@@ -22,57 +26,104 @@ async function employeeQuestion() {
       name: "email",
       message: "What is the employee's email?",
     },
-  ])
-}
+    {
+      type: "list",
+      name: "role",
+      message: "What is the employee's role?",
+      choices: ["Manager", "Engineer", "Intern"],
+    },
+  ]);
 
-// Main Menu
-async function mainMenu() {
-  console.log("Welcome to the Employee Team Generator!");
+  // console.log(response)
 
-  const response = await inquirer
-    .prompt([
-      {
-        type: "list",
-        name: "role",
-        message: "What is the employee's role?",
-        choices: ["Manager", "Engineer", "Intern"],
-      },
-    ])
-    .then(function (response) {
-      if (response.role === "Manager") {
-        manQuestion();
-      } else if (response.role === "Engineer") {
-        engQuestion();
-      } else if (response.role === "Intern") {
-        intQuestion();
-      }
-    }
-)}
-
-//Manager question for office number
-function manQuestion() {
-  inquirer
-    .prompt([
+  // If user selects Manager, prompt for office number
+  if (response.role === "Manager") {
+    const managerRes = await inquirer.prompt([
       {
         type: "input",
         name: "officeNumber",
-        message: "What is the manager's office number?",
+        message: "What is the employee's office number?",
+      },
+    ]);
+    const newMan = new Manager(
+      response.name,
+      response.id,
+      response.email,
+      response.officeNumber
+    );
+
+    //push new manager to employeeArray
+    employeeArray.push(newMan);
+
+    console.log(employeeArray);
+  }
+
+  // If user selects Engineer, prompt for github username
+  if (response.role === "Engineer") {
+    const engineerRes = await inquirer.prompt([
+      {
+        type: "input",
+        name: "github",
+        message: "What is the employee's github username?",
+      },
+    ]);
+    const newEng = new Engineer(
+      response.name,
+      response.id,
+      response.email,
+      response.github
+    );
+
+    //push new engineer to employeeArray
+    employeeArray.push(newEng);
+  }
+  // If user selects Intern, prompt for school name
+  else if (response.role === "Intern") {
+    const internRes = await inquirer.prompt([
+      {
+        type: "input",
+        name: "school",
+        message: "What is the employee's school name?",
+      },
+    ]);
+    const newIntern = new Intern(
+      response.name,
+      response.id,
+      response.email,
+      response.school
+    );
+    //push new intern to employeeArray
+    employeeArray.push(newIntern);
+  }
+};
+
+async function init() {
+  await questions();
+  // console.log(employeeArray);
+
+  //prompt user to add another employee or write team html
+  const addMore = await inquirer.prompt([
+    {
+      type: "list",
+      name: "addMore",
+      message: "Would you like to add another employee?",
+      choices: ["Yes", "No"],
+    },
+  ]);
+  // console.log(addMore);
+  if (addMore.addMore === "Yes") {
+    await questions();
+  } else {
+    //write team html using fs module
+
+    fs.writeFile("./dist/team.html", generateTeam(employeeArray, 'utf-8'), function (err) {
+      if (err) {
+        return console.log(err);
       }
-    ])
-    .then(function (response) {
-      const manager = new Manager(
-        response.name,
-        response.id,
-        response.email,
-        response.officeNumber
-      );
-      console.log(manager);
+      console.log("Success!");
     });
+  }
 }
 
-// Intern question for school Here
-// Engineer question for github account Here
-
-mainMenu();
-
-
+// Call init function
+init();

@@ -3,29 +3,25 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "type": "module",
   "directories": {
     "lib": "lib"
   },
   "scripts": {
-    "test": "jest",
-    "start": "node index.js"
-    
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/btking1/Eng-Team-Profile-Generator.git"
   },
+  "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/btking1/Eng-Team-Profile-Generator/issues"
   },
   "homepage": "https://github.com/btking1/Eng-Team-Profile-Generator#readme",
-  "devDependencies": {
-    "jest": "^28.1.1"
-  },
   "dependencies": {
-    "inquirer": "^9.0.0"
+    "fetch": "^1.1.0",
+    "inquirer": "^8.2.4"
   }
 }

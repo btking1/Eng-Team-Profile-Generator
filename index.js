@@ -1,9 +1,9 @@
-const generateTeam = require('./src/team.js');
+const generateTeam = require("./src/team.js");
 const inquirer = require("inquirer");
 const fs = require("fs");
 // const team = require("./src/team.js");
 const Manager = require("./lib/Manager.js");
-const Intern  = require("./lib/Intern.js");
+const Intern = require("./lib/Intern.js");
 const Engineer = require("./lib/Engineer.js");
 
 const employeeArray = [];
@@ -49,7 +49,7 @@ const questions = async () => {
       response.name,
       response.id,
       response.email,
-      response.officeNumber
+      managerRes.officeNumber
     );
 
     //push new manager to employeeArray
@@ -71,7 +71,7 @@ const questions = async () => {
       response.name,
       response.id,
       response.email,
-      response.github
+      engineerRes.github
     );
 
     //push new engineer to employeeArray
@@ -90,7 +90,7 @@ const questions = async () => {
       response.name,
       response.id,
       response.email,
-      response.school
+      internRes.school
     );
     //push new intern to employeeArray
     employeeArray.push(newIntern);
@@ -102,27 +102,36 @@ async function init() {
   // console.log(employeeArray);
 
   //prompt user to add another employee or write team html
-  const addMore = await inquirer.prompt([
-    {
-      type: "list",
-      name: "addMore",
-      message: "Would you like to add another employee?",
-      choices: ["Yes", "No"],
-    },
-  ]);
-  // console.log(addMore);
-  if (addMore.addMore === "Yes") {
-    await questions();
-  } else {
-    //write team html using fs module
+  const reset = async () => {
+    const addMore = await inquirer.prompt([
+      {
+        type: "list",
+        name: "addMore",
+        message: "Would you like to add another employee?",
+        choices: ["Yes", "No"],
+        default: [false],
+      },
+    ]);
+    return addMore;
+  };
+  let answer = await reset();
 
-    fs.writeFile("./dist/team.html", generateTeam(employeeArray, 'utf-8'), function (err) {
+  while (answer.addMore === "Yes") {
+    await questions();
+    answer = await reset();
+  }
+  //write team html using fs module
+
+  fs.writeFile(
+    "./dist/team.html",
+    generateTeam(employeeArray, "utf-8"),
+    function (err) {
       if (err) {
         return console.log(err);
       }
       console.log("Success!");
-    });
-  }
+    }
+  );
 }
 
 // Call init function

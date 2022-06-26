@@ -35,7 +35,7 @@
 
 ## Usage
 
-[VIDEO LINK HERE](https://link-url-here.org)
+![VIDEO LINK HERE](https://www.youtube.com/watch?v=kaqN3KDxCYY))
 
 ![SCREENSHOOT](https://github.com/btking1/Eng-Team-Profile-Generator/blob/main/img/eng-team-ss.jpg)
 

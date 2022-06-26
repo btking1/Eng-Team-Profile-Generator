@@ -50,4 +50,4 @@ For more information about the project you can go
 to my GitHub page at the following Link:
 
 - GitHub: [https://github.com/btking1/README-Generator](https://github.com/btking1)
-- Email: btking1@email.com
+- Email: btking1@gmail.com

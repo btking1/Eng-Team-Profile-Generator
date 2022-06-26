@@ -19,7 +19,6 @@
 - [Installation](#installation)
 - [Usage](#usage)
 - [Test](#test)
-- [License](#license)
 - [Questions](#questions)
 
 ## Installation
@@ -34,16 +33,12 @@
 
 [VIDEO LINK HERE](https://link-url-here.org)
 
-![eng-team-ss](https://github.com/btking1/Eng-Team-Profile-Generator/tree/main/img)
+![SCREENSHOOT](https://github.com/btking1/Eng-Team-Profile-Generator/blob/main/img/eng-team-ss.jpg)
 
 ## Test
 
 Run program in command line and then answer questions for engineering team page. Afterwards, answers will be console logged in terminal and HTML should generate. To test, answers should match with what was generated on HTML page. 
 
-
-## License
-
-Distributed under the MIT License. See LICENSE.txt for more information.
 
 ## Questions
 

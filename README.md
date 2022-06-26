@@ -6,7 +6,9 @@
 
 ## Description
    
-    - This program generates an engineering team html page using user input from the command line. The criteria for each employee includes: name, ID number, and email as well a unique entry for manager, engineer, and intern respectively.
+    - This program generates an engineering team html page using user input from the command line. 
+      The criteria for each employee includes: name, ID number, and email as well a 
+      unique entry for manager, engineer, and intern respectively.
     
     - Built with: 
         *JavaScript
@@ -25,6 +27,8 @@
 
     - Clone repo. 
     - Install dependencies using npm install.
+    - In Project root folder, add folder named /dist then add style.css (which is in the root) 
+      to this folder. 
     - From command line, cd into project directory and type: Node index.js
     
 
